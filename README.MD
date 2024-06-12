@@ -44,3 +44,5 @@ This project is a starting point for a Web application.
 - 유튜브 영상 삽입
 - 배경 음악 및 프로필 사진 삽입
 - 12주차에 구현했던 로그인 시간 유지를 profile에도 적용
+
+# 14주차까지의 모든 과정 완성!! 실력도 많이 늘고 새로 배우게 된 것도 많아서 아주 보람차고 뿌듯한 결과물!! 
