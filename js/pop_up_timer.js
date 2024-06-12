@@ -10,7 +10,7 @@ const takeTarget = () => {
         if (sec === 0) {
             if (min === 0) {
                 clearInterval(timer);
-                alert('로그아웃되었습니다.');
+                alert('로그인 시간 만료! 로그아웃 페이지로 이동합니다.');
                 // 로그아웃 처리
                 window.location.href = 'login/logout.html';
             } else {
