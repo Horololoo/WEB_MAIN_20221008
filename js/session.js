@@ -79,3 +79,20 @@ function session_join_set(){ //세션 저장(객체)    
             return null;
         }
     }
+
+    function sess_check() {
+        var encryptedData = sessionStorage.getItem("Session_Storage_encrypted");
+        if (!encryptedData) { // 세션에 저장된 암호화된 데이터가 없으면
+            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+            window.location.href = '../login/login.html'; // 로그인 페이지로 리디렉션
+        }
+    }
+    
+    
+
+//     // 자동 로그아웃 설정 (5분 후)
+// function setAutoLogout() {
+//     setTimeout(function() {
+//         session_del(); // 5분 후 자동 로그아웃
+//     }, 1 * 60 * 1000); // 5분 * 60초 * 1000밀리초
+// }

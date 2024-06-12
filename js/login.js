@@ -8,6 +8,7 @@ function addJavascript(jsname) { // 자바스크립트 외부 연동
 addJavascript('/js/security.js'); // 암복호화 함수
 addJavascript('/js/session.js'); // 세션 함수
 addJavascript('/js/cookie.js'); // 쿠키 함수
+addJavascript('/js/pop_up_timer.js'); // 로그아웃 타이머 함수
 
 const check_input = () => {
     const loginForm = document.getElementById('login_form');
@@ -60,6 +61,8 @@ const check_input = () => {
         alert("쿠키를 저장합니다.", emailValue);
         setCookie("id", emailValue, 1); // 1일 저장
         alert("쿠키 값 :" + emailValue);
+        login_count();
+        logout_count();
     }
     else
     { // 아이디 체크 X
@@ -83,8 +86,51 @@ const check_input = () => {
         // Sanitize된 비밀번호 사용
         return false;
     }
-
+    takeTarget();
 };
+  
+  // 로그인 처리 함수
+  function login_count() {
+    const loginCount = getLoginCountFromCookie() + 1; // 기존 횟수 + 1
+    setLoginCountCookie(loginCount); // 횟수 업데이트
+    console.log('로그인 횟수:', loginCount);
+  
+    // 추가적인 로그인 처리 로직을 여기에 작성합니다.
+    // ...
+  }
+  
+  // 로그아웃 처리 함수
+  function logout_count() {
+    const logoutCount = getLogoutCountFromCookie() + 1; // 기존 횟수 + 1
+    setLogoutCountCookie(logoutCount); // 횟수 업데이트
+    console.log('로그아웃 횟수:', logoutCount);
+  
+    // 추가적인 로그아웃 처리 로직을 여기에 작성합니다.
+    // ...
+  }
+  
+  // 로그인 제한 상태 확인
+  function isLoginRestricted() {
+    const failedCount = getLoginFailedCountFromCookie();
+    return failedCount >= 3; // 실패 횟수가 3 이상인 경우 제한 상태로 간주
+  }
+  
+  // 로그인 실패 처리 함수
+  function login_failed() {
+    const failedCount = getLoginFailedCountFromCookie() + 1; // 기존 횟수 + 1
+    setLoginFailedCountCookie(failedCount); // 횟수 업데이트
+    console.log('로그인 실패 횟수:', failedCount);
+  
+    if (isLoginRestricted()) {
+      alert('로그인이 제한되었습니다.');
+    } else {
+      alert('로그인에 실패하였습니다.');
+    }
+  
+    // 추가적인 로그인 실패 처리 로직을 여기에 작성합니다.
+    // ...
+  }
+
 
 function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
     const emailInput = document.getElementById('typeEmailX');
@@ -96,6 +142,7 @@ function init(){ // 로그인 폼에 쿠키에서 가져온 아이디 입력
         idsave_check.checked = true;
     }
     session_check(); // 세션 유무 검사
+    takeTarget(); // 자동 로그아웃 시작
 }       
 
 document.getElementById("login_btn").addEventListener('click', check_input);

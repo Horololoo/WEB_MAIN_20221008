@@ -9,7 +9,7 @@ const search_message = () => {
     alert(c);
 }
 
-document.getElementById("search_btn").addEventListener('click', search_message);
+document.getElementById("search_button_msg").addEventListener('click', search_message);
 
 function googleSearch() {
     const searchTerm = document.getElementById("search_input").value.trim(); // 검색어로 설정하고 양 끝 공백 제거
